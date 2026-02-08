@@ -1,0 +1,297 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/*light mode*/
+:root {
+    --bg-gradient-start: #e0c3fc;
+    --bg-gradient-end: #8ec5fc;
+    --card-bg: rgba(255, 255, 255, 0.35);
+    --card-bg-hover: rgba(255, 255, 255, 0.5);
+    --text-primary: #2d1b69;
+    --text-secondary: #7c3aed;
+    --border-color: rgba(124, 58, 237, 0.3);
+    --border-color-active: #7c3aed;
+    --shadow-color: rgba(124, 58, 237, 0.15);
+    --icon-filter: brightness(0) saturate(100%)
+        invert(20%) sepia(78%) saturate(3500%)
+        hue-rotate(252deg) brightness(85%) contrast(95%);
+}
+
+/*dark mode*/
+body.dark {
+    --bg-gradient-start: #1a0b2e;
+    --bg-gradient-end: #2d1b4e;
+    --card-bg: rgba(255, 255, 255, 0.08);
+    --card-bg-hover: rgba(255, 255, 255, 0.12);
+    --text-primary: #f9c3ff;
+    --text-secondary: #c4b5fd;
+    --border-color: rgba(167, 139, 250, 0.3);
+    --border-color-active: #a78bfa;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --icon-filter: brightness(0) saturate(100%)
+        invert(85%) sepia(23%) saturate(1328%)
+        hue-rotate(202deg) brightness(103%) contrast(101%);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display',
+        'Segoe UI', Roboto, sans-serif;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(
+        135deg,
+        var(--bg-gradient-start),
+        var(--bg-gradient-end)
+    );
+    transition: background 0.3s ease;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    min-height: 600px;
+    display: grid;
+    grid-template-columns: 35% 65%;
+    background: var(--card-bg);
+    backdrop-filter: blur(40px) saturate(180%);
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px var(--shadow-color);
+    transition: all 0.3s ease;
+}
+
+.sidebar {
+    padding: 30px;
+    border-right: 2px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.main-content {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+.title-icon,
+.theme-icon,
+.upload-icon,
+.action-icon,
+.btn img {
+    width: auto;
+    height: auto;
+    filter: var(--icon-filter);
+    transition: filter 0.3s ease;
+}
+
+.icon-btn {
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    background: var(--card-bg-hover);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.upload-area {
+    border: 2.5px dashed var(--border-color);
+    border-radius: 20px;
+    padding: 50px 30px;
+    text-align: center;
+    background: var(--card-bg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover,
+.upload-area.dragover {
+    border-color: var(--border-color-active);
+    background: var(--card-bg-hover);
+    transform: translateY(-2px);
+}
+
+.upload-text {
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.upload-hint {
+    color: var(--text-secondary);
+    opacity: 0.7;
+    font-size: 14px;
+}
+
+.search-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.search-action-btn {
+    padding: 18px 24px;
+    border-radius: 16px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+}
+
+.google-action {
+    background: linear-gradient(135deg, #4285f4, #34a853);
+}
+
+.yandex-action {
+    background: linear-gradient(135deg, #fc3f1d, #ff0000);
+}
+
+.delete-action {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.loading {
+    display: none;
+    text-align: center;
+    margin-top: 30px;
+    color: var(--text-secondary);
+}
+
+.loading.active {
+    display: block;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    border-top-color: var(--border-color-active);
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.error {
+    display: none;
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: 16px;
+    background: rgba(239, 68, 68, 0.15);
+    color: #dc2626;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.error.active {
+    display: block;
+}
+
+.preview-image-container {
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    border-radius: 24px;
+    background: var(--card-bg-hover);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+.gallery {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.image-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 4px 16px var(--shadow-color);
+    transition: all 0.3s ease;
+}
+
+.image-card:hover {
+    transform: translateY(-4px);
+}
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        border-right: none;
+        border-bottom: 2px solid var(--border-color);
+    }
+
+    .title {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 24px;
+    }
+}
+
+@supports (padding: max(0px)) {
+    body {
+        padding-left: max(20px, env(safe-area-inset-left));
+        padding-right: max(20px, env(safe-area-inset-right));
+        padding-bottom: max(20px, env(safe-area-inset-bottom));
+    }
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#a78bfa">
+    <title>ImgSpy – Reverse Image Search</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="preview-image-container">
+                <img src="image.png" alt="ImgSpy Illustration" class="sidebar-image" />
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="header">
+                <h1 class="title">
+                    <img src="icons/search.svg" alt="Search" class="title-icon" />
+                    ImgSpy
+                </h1>
+                <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">
+                    <img src="icons/moon.svg" alt="Dark mode" class="theme-icon" id="themeIcon" />
+                </button>
+            </div>
+            <p class="subtitle">Find where your images appear across the web</p>
+            <div class="upload-area" id="uploadArea">
+                <img src="icons/upload.svg" alt="Upload" class="upload-icon" />
+                <p class="upload-text">Drop images here, paste, or click to browse</p>
+                <p class="upload-hint">JPG, PNG, GIF, WEBP</p>
+                <input type="file" id="fileInput" accept="image/*" capture="environment" style="display:none;">
+            </div>
+            <div class="search-actions" id="searchActions" style="display: none;">
+                <a href="#" class="search-action-btn google-action" id="googleActionBtn" target="_blank" rel="noopener noreferrer">
+                    <img src="icons/google.svg" alt="Google" class="action-icon" />
+                    <span>Search on Google</span>
+                </a>
+                <a href="#" class="search-action-btn yandex-action" id="yandexActionBtn" target="_blank" rel="noopener noreferrer">
+                    <img src="icons/yandex.svg" alt="Yandex" class="action-icon" />
+                    <span>Search on Yandex</span>
+                </a>
+                <button class="search-action-btn delete-action" id="deleteActionBtn">
+                    <img src="icons/trash.svg" alt="Delete" class="action-icon" />
+                    <span>Delete Image</span>
+                </button>
+            </div>
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Uploading to temporary storage...</p>
+            </div>
+            <div id="error" class="error"></div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
