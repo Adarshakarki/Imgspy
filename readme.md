@@ -33,7 +33,7 @@
 
 ### Screenshots
 **Light Mode**
-![Light Mode](screenshots/Lightmode.png)
+![Light Mode](screenshots/LightMode.png)
 **Dark Mode**
 ![Dark Mode](screenshots/DarkMode.png)
 **Add Image**
@@ -63,5 +63,6 @@
 
 ### Planned Features
 - More search engine integrations (Bing, TinEye, SauceNao)
+
 
 ## [Try it out](https://adarshakarki.github.io/Imgspy/)
