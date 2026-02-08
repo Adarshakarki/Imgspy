@@ -9,6 +9,8 @@ const googleActionBtn = document.getElementById('googleActionBtn');
 const yandexActionBtn = document.getElementById('yandexActionBtn');
 const deleteActionBtn = document.getElementById('deleteActionBtn');
 const sidebarImageContainer = document.querySelector('.preview-image-container');
+const imagePreview = document.getElementById('imagePreview');
+const previewImg = document.getElementById('previewImg');
 
 let currentImageUrl = null;
 let uploadedFileName = null;
@@ -99,8 +101,9 @@ async function uploadImage(file) {
         }
         currentImageUrl = url;
         uploadedFileName = file.name;
-        showUploadedImage(file);
+        showUploadedImagePreview(file);
         uploadArea.style.display = 'none';
+        imagePreview.classList.add('active');
         searchActions.style.display = 'flex';
         
         googleActionBtn.href = `https://www.google.com/searchbyimage?image_url=${encodeURIComponent(url)}`;
@@ -114,18 +117,19 @@ async function uploadImage(file) {
     }
 }
 
-function showUploadedImage(file) {
+function showUploadedImagePreview(file) {
     const reader = new FileReader();
     reader.onload = (e) => {
-        sidebarImageContainer.innerHTML = `<img src="${e.target.result}" alt="Uploaded image" class="sidebar-image" />`;
+        previewImg.src = e.target.result;
     };
     reader.readAsDataURL(file);
 }
 
 function resetToUploadState() {
-    sidebarImageContainer.innerHTML = `<img src="placeholder.jpg" alt="ImgSpy Illustration" class="sidebar-image" />`;
+    imagePreview.classList.remove('active');
     searchActions.style.display = 'none';
     uploadArea.style.display = 'block';
+    previewImg.src = '';
     currentImageUrl = null;
     uploadedFileName = null;
 }

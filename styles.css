@@ -109,10 +109,10 @@ body {
 .upload-icon,
 .action-icon,
 .btn img {
-    width: auto;
-    height: auto;
+    width: 39px;
+    height: 39px;
     filter: var(--icon-filter);
-    transition: filter 0.3s ease;
+    transition: filter 0.3s ease, opacity 0.3s ease;
 }
 
 .icon-btn {
@@ -164,31 +164,62 @@ body {
     margin-top: 20px;
 }
 
+.image-preview {
+    display: none;
+    width: 100%;
+    height: 200px;
+    border-radius: 16px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: transparent;
+    padding: 0;
+}
+
+.image-preview.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
 .search-action-btn {
     padding: 18px 24px;
     border-radius: 16px;
-    border: none;
     font-size: 16px;
     font-weight: 600;
-    color: #fff;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    background: var(--card-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--border-color); 
+    color: var(--text-primary);
     transition: all 0.3s ease;
 }
 
-.google-action {
-    background: linear-gradient(135deg, #4285f4, #34a853);
+.search-action-btn:hover {
+    background: var(--card-bg-hover);
+    border-color: var(--border-color-active);
+    box-shadow: 0 8px 20px var(--shadow-color);
+    transform: translateY(-2px);
 }
 
-.yandex-action {
-    background: linear-gradient(135deg, #fc3f1d, #ff0000);
+.search-action-btn .action-icon {
+    opacity: 0.8;
 }
 
-.delete-action {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
+.search-action-btn:hover .action-icon {
+    opacity: 1;
 }
 
 .loading {
