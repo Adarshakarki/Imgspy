@@ -3,7 +3,7 @@
 ---
 
 ## About
-**ImgSpy** is a lightweight, client-side reverse image search tool that helps you find where your images appear across the web. Built with vanilla JavaScript and featuring a stunning glassmorphism design inspired by iOS 26 aesthetics.
+**ImgSpy** is a lightweight, client-side reverse image search tool that helps you find where your images appear across the web. Built with vanilla JavaScript and featuring glassmorphism design inspired by iOS 26.
 
 ### Why ImgSpy?
 - **Privacy First** - All processing happens in your browser
@@ -34,10 +34,13 @@
 ### Screenshots
 **Light Mode**
 ![Light Mode](screenshots/lightmode.png)
+
 **Dark Mode**
 ![Dark Mode](screenshots/darkmode.png)
+
 **Add Image**
 ![Add Image](screenshots/imageadd.png)
+
 **Search Results**
 ![Google Results](screenshots/googleresults.png)
 ![Yandex Results](screenshots/yandexresults.png)
@@ -62,5 +65,6 @@
 
 ### Planned Features
 - More search engine integrations (Bing, TinEye, SauceNao)
+
 
 ## [Try it out](https://adarshakarki.github.io/Imgspy/)
