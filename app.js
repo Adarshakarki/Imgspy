@@ -7,25 +7,24 @@ const themeIcon = document.getElementById('themeIcon');
 const searchActions = document.getElementById('searchActions');
 const googleActionBtn = document.getElementById('googleActionBtn');
 const yandexActionBtn = document.getElementById('yandexActionBtn');
+const saucenaoActionBtn = document.getElementById('saucenaoActionBtn');
 const deleteActionBtn = document.getElementById('deleteActionBtn');
-const sidebarImageContainer = document.querySelector('.preview-image-container');
 const imagePreview = document.getElementById('imagePreview');
 const previewImg = document.getElementById('previewImg');
 
 let currentImageUrl = null;
-let uploadedFileName = null;
 
 themeToggle.addEventListener('click', () => {
-    const isLight = document.body.classList.toggle('dark');
-    themeIcon.src = isLight ? 'icons/sun.svg' : 'icons/moon.svg';
-    themeIcon.alt = isLight ? 'Light mode' : 'Dark mode';
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    const isDark = document.body.classList.toggle('dark');
+    themeIcon.src = isDark ? 'icons/moon.svg' : 'icons/sun.svg';
+    themeIcon.alt = isDark ? 'Dark mode' : 'Light mode';
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
 });
 
-if (localStorage.getItem('theme') === 'light') {
-    document.body.classList.add('light');
-    themeIcon.src = 'icons/sun.svg';
-    themeIcon.alt = 'Light mode';
+if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark');
+    themeIcon.src = 'icons/moon.svg';
+    themeIcon.alt = 'Dark mode';
 }
 
 async function handleFile(file) {
@@ -73,7 +72,15 @@ document.addEventListener('paste', (e) => {
 function showError(msg) {
     error.textContent = msg;
     error.classList.add('active');
-    setTimeout(() => error.classList.remove('active'), 5000);
+
+    setTimeout(() => {
+        error.style.animation = 'fadeOut 0.3s ease-out';
+    }, 4700);
+    
+    setTimeout(() => {
+        error.classList.remove('active');
+        error.style.animation = '';
+    }, 5000);
 }
 
 async function uploadImage(file) {
@@ -86,10 +93,16 @@ async function uploadImage(file) {
         formData.append('filenamelen', '16');
         formData.append('fileToUpload', file);
 
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000);
+
         const response = await fetch('https://litterbox.catbox.moe/resources/internals/api.php', {
             method: 'POST',
-            body: formData
+            body: formData,
+            signal: controller.signal
         });
+
+        clearTimeout(timeoutId);
 
         if (!response.ok) {
             throw new Error('Upload failed');
@@ -100,18 +113,22 @@ async function uploadImage(file) {
             throw new Error('Invalid URL received');
         }
         currentImageUrl = url;
-        uploadedFileName = file.name;
         showUploadedImagePreview(file);
         uploadArea.style.display = 'none';
         imagePreview.classList.add('active');
         searchActions.style.display = 'flex';
-        
-        googleActionBtn.href = `https://www.google.com/searchbyimage?image_url=${encodeURIComponent(url)}`;
+        googleActionBtn.href = `https://lens.google.com/uploadbyurl?url=${encodeURIComponent(url)}`;
         yandexActionBtn.href = `https://yandex.com/images/search?url=${encodeURIComponent(url)}&rpt=imageview`;
+        saucenaoActionBtn.href = `https://saucenao.com/search.php?url=${encodeURIComponent(url)}`;
 
     } catch (err) {
         console.error('Upload error:', err);
-        showError(`Failed to upload "${file.name}". Please try again.`);
+        if (err.name === 'AbortError') {
+            showError('Upload timed out. Litterbox might be down. Please try again.');
+        } else {
+            showError(`Failed to upload "${file.name}". Please try again.`);
+        }
+        resetToUploadState();
     } finally {
         loading.classList.remove('active');
     }
@@ -131,7 +148,6 @@ function resetToUploadState() {
     uploadArea.style.display = 'block';
     previewImg.src = '';
     currentImageUrl = null;
-    uploadedFileName = null;
 }
 
 deleteActionBtn.addEventListener('click', () => {

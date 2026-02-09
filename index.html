@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#a78bfa">
     <title>ImgSpy – Reverse Image Search</title>
-<link rel="icon" type="image/svg+xml" href="icons/search.svg">
+    <link rel="icon" type="image/svg+xml" href="icons/search.svg">
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -31,7 +32,7 @@
                 <img src="icons/upload.svg" alt="Upload" class="upload-icon" />
                 <p class="upload-text">Drop images here, paste, or click to browse</p>
                 <p class="upload-hint">JPG, PNG, GIF, WEBP</p>
-                <input type="file" id="fileInput" accept="image/*" capture="environment" style="display:none;">
+                <input type="file" id="fileInput" accept="image/*" style="display:none;">
             </div>
             <div class="image-preview" id="imagePreview">
       <img id="previewImg" alt="Preview">
@@ -44,6 +45,10 @@
                 <a href="#" class="search-action-btn yandex-action" id="yandexActionBtn" target="_blank" rel="noopener noreferrer">
                     <img src="icons/yandex.svg" alt="Yandex" class="action-icon" />
                     <span>Search on Yandex</span>
+                </a>
+                <a href="#" class="search-action-btn saucenao-action" id="saucenaoActionBtn" target="_blank" rel="noopener noreferrer">
+                    <img src="icons/saucenao.svg" alt="SauceNAO" class="action-icon" />
+                    <span>Search on SauceNAO</span>
                 </a>
                 <button class="search-action-btn delete-action" id="deleteActionBtn">
                     <img src="icons/trash.svg" alt="Delete" class="action-icon" />
